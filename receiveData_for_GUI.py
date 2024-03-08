@@ -1,4 +1,4 @@
-import socket 
+import socket
 import os
 import threading
 
@@ -22,7 +22,7 @@ import threading
 B2T_BMS1 = {
     "B2T_TMax": (0, 8),
     "B2T_Tmin": (8, 8),
-    "B2T_ScBatU_H": (16, 8),        
+    "B2T_ScBatU_H": (16, 8),
     "B2T_ScBatU_L": (24, 8),
     "B2T_Mode": (32, 1),
     "B2T_TMSWorkMode": (33, 3),
@@ -35,7 +35,7 @@ B2T_BMS1 = {
 # B2T_BMS1 = {
 #     "B2T_TMax": (56, 8),
 #     "B2T_Tmin": (48, 8),
-#     "B2T_ScBatU_H": (40, 8),        
+#     "B2T_ScBatU_H": (40, 8),
 #     "B2T_ScBatU_L": (32, 8),
 #     "B2T_Mode": (31, 1),
 #     "B2T_TMSWorkMode": (28, 1),
@@ -46,11 +46,12 @@ B2T_BMS1 = {
 #     "B2T_Life": (0, 8)
 # }
 
+
 class B2TServer:
     def __init__(self):
 
         # self.network_BSSID = 'F0:C8:14:77:98:9D'
-        self.network_BSSID ='60:FB:00:2E:A0:BF'
+        self.network_BSSID = '60:FB:00:2E:A0:BF'
         # self.network_BSSID = '60:FB:00:2E:A0:BA'
         self.password = '12345678'
         self.SERVER_IP = '192.168.1.12'
@@ -62,14 +63,15 @@ class B2TServer:
         self.server_socket.bind((self.SERVER_IP, self.SERVER_PORT))
         self.lock = threading.Lock()  # Add a lock for thread safety
 
-
     def connect_to_wifi(self):
         command = f"nmcli device wifi connect {self.network_BSSID} password {self.password}"
         exit_code = os.system(command)
         if exit_code == 0:
-            print(f"Successfully connected to WiFi network: {self.network_BSSID}")
+            print(
+                f"Successfully connected to WiFi network: {self.network_BSSID}")
         else:
-            print(f"Error: Failed to connect to WiFi network {self.network_BSSID}")
+            print(
+                f"Error: Failed to connect to WiFi network {self.network_BSSID}")
 
     def disconnect_from_wifi(self):
         command = f"nmcli device disconnect wlo1"
@@ -80,11 +82,10 @@ class B2TServer:
             print(f"Error: Failed to disconnect from Device 'wlo1'.")
 
     def receive_data_from_socket(self):
-        data , _ = self.server_socket.recvfrom(13)
+        data, _ = self.server_socket.recvfrom(13)
         hex_data = data.hex()  # Convert received data to Hexadecimal
         return hex_data
 
-    
     def get_B2T_BMS1(self):
         global B2T_BMS1
         # with self.lock
@@ -100,14 +101,15 @@ class B2TServer:
         while True:
             received_data = self.receive_data_from_socket()
             print(received_data)
-            
+
             # Check if the received data starts with the desired prefix
             if str(received_data[2:]).startswith('18ff45f3'):
                 # Extract the relevant portion of the received data (after the prefix)
-                trimmed_data = int(received_data,16)  & 0xffffffffffffffff # Mask out all but the last 64 bits
+                # Mask out all but the last 64 bits
+                trimmed_data = int(received_data, 16) & 0xffffffffffffffff
                 # trimmed_data = hex(trimmed_data)
                 # Convert hex data to binary string
-                binary_data = bin(trimmed_data)[2:].zfill(64) 
+                binary_data = bin(trimmed_data)[2:].zfill(64)
                 # # Assign the extracted data to the corresponding key in the dictionary
                 # B2T_BMS1[keys[self.index]] = trimmed_data
                 # # Increment the index for the next key
