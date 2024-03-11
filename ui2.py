@@ -5,6 +5,7 @@ import tkinter as tk
 from tkinter import ttk
 
 import os
+from typing import Self
 
 B2T_BMS1 = {
     "B2T_BMS1_Message_sum":0,
