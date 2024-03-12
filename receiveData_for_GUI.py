@@ -1,6 +1,7 @@
 import socket
 import os
 import threading
+import time
 
 # B2T_BMS1 = {}
 # keys = [
@@ -64,14 +65,34 @@ class B2TServer:
         self.lock = threading.Lock()  # Add a lock for thread safety
 
     def connect_to_wifi(self):
-        command = f"nmcli device wifi connect {self.network_BSSID} password {self.password}"
-        exit_code = os.system(command)
-        if exit_code == 0:
+        command1 = f"nmcli device wifi connect {self.network_BSSID} password {self.password}"
+        command2 = f"sudo nmcli connection modify CANWiFi-II ipv4.address 192.168.1.12 ipv4.gateway 192.168.1.11 ipv4.dns 8.8.8.8"
+        command3 = f"sudo systemctl restart NetworkManager"
+        exit_code1 = os.system(command1)
+        # exit_code2 = os.system(command2)
+        # exit_code3 = os.system(command3)
+        # time.sleep(3)
+        # exit_code1 = os.system(command1)
+        if exit_code1 == 0:
             print(
                 f"Successfully connected to WiFi network: {self.network_BSSID}")
         else:
             print(
                 f"Error: Failed to connect to WiFi network {self.network_BSSID}")
+            
+        # if exit_code2 == 0:
+        #     print(
+        #         f"Successfully connected to IP : {self.SERVER_IP}")
+        # else:
+        #     print(
+        #         f"Error: Failed to connect to WiFi network {self.SERVER_IP}")
+            
+        # if exit_code3 == 0:
+        #     print(
+        #         f"Successfully Restarted NetworkManager")
+        # else:
+        #     print(
+        #         f"Error: Failed to Restarted NetworkManager")
 
     def disconnect_from_wifi(self):
         command = f"nmcli device disconnect wlo1"
