@@ -66,8 +66,8 @@ class B2TServer:
 
     def connect_to_wifi(self):
         command1 = f"nmcli device wifi connect {self.network_BSSID} password {self.password}"
-        command2 = f"sudo nmcli connection modify CANWiFi-II ipv4.address 192.168.1.12 ipv4.gateway 192.168.1.11 ipv4.dns 8.8.8.8"
-        command3 = f"sudo systemctl restart NetworkManager"
+        # command2 = f"sudo nmcli connection modify CANWiFi-II ipv4.address 192.168.1.12 ipv4.gateway 192.168.1.11 ipv4.dns 8.8.8.8"
+        # command3 = f"sudo systemctl restart NetworkManager"
         exit_code1 = os.system(command1)
         # exit_code2 = os.system(command2)
         # exit_code3 = os.system(command3)
