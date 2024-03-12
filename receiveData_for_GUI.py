@@ -50,8 +50,8 @@ B2T_BMS1 = {
 class B2TServer:
     def __init__(self):
 
-        self.network_BSSID = 'F0:C8:14:77:98:9D'
-        # self.network_BSSID = '60:FB:00:2E:A0:BF'
+        # self.network_BSSID = 'F0:C8:14:77:98:9D'
+        self.network_BSSID = '60:FB:00:2E:A0:BF'
         # self.network_BSSID = '60:FB:00:2E:A0:BA'
         self.password = '12345678'
         self.SERVER_IP = '192.168.1.12'
