@@ -71,7 +71,7 @@ class B2TServer:
             output_string = f'CAN ID <{received_data[2:10]}> {received_data[10:]}\n'
 
             # Specify the file path
-            file_path = "CANB_Test.log"
+            file_path = "CANT_Test.log"
 
             # Write the output string to the file
             with open(file_path, "a") as file:
