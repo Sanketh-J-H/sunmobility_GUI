@@ -65,7 +65,7 @@ class B2TServer:
         print("UDP server is listening...")
         while True:
             received_data = self.receive_data_from_socket()
-            print("CAN ID <" , received_data[2:10],
+            print("CAN ID <", received_data[2:10],
                   ">", " ", "HEX data", received_data[10:])
             # Define the output string
             output_string = f'CAN ID <{received_data[2:10]}> {received_data[10:]}\n'
@@ -76,6 +76,7 @@ class B2TServer:
             # Write the output string to the file
             with open(file_path, "a") as file:
                 file.write(output_string)
+
     def stop_server(self):
         self.server_socket.close()
 

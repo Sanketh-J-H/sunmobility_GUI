@@ -32,4 +32,3 @@ history.pack()
 
 # Run the tkinter event loop
 root.mainloop()
-
