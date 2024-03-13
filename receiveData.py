@@ -19,5 +19,3 @@ while True:
 
     # Print received data and client address
     print(f"Received data from {client_address}:0x{hex_data}")
-
- 
