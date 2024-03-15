@@ -124,22 +124,16 @@ class B2TServer:
             print(received_data)
 
             # Check if the received data starts with the desired prefix
-            if str(received_data[2:]).startswith('18ff45f3'):
-                # Extract the relevant portion of the received data (after the prefix)
-                # Mask out all but the last 64 bits
+            if str(received_data[2:]).startswith('18ff45f3'):                
                 trimmed_data = int(received_data, 16) & 0xffffffffffffffff
-                # trimmed_data = hex(trimmed_data)
                 # Convert hex data to binary string
                 binary_data = bin(trimmed_data)[2:].zfill(64)
-                # # Assign the extracted data to the corresponding key in the dictionary
-                # B2T_BMS1[keys[self.index]] = trimmed_data
-                # # Increment the index for the next key
-                # self.index = (self.index + 1) % len(keys)
                 # Decrypt hex data into separate variables
                 decrypted_data = {}
                 for var, (start_bit, length) in B2T_BMS1.items():
                     end_bit = start_bit + length
                     value = int(binary_data[start_bit:end_bit], 2)
+                    if var == 
                     decrypted_data[var] = value
                 print(decrypted_data)
 
