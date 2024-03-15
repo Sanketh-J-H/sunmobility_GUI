@@ -1,7 +1,7 @@
 import socket
 import os
 import threading
-
+import datetime
 
 # Define variables and their start bits and lengths
 B2T_BMS1 = {
@@ -67,11 +67,16 @@ class B2TServer:
             received_data = self.receive_data_from_socket()
             print("CAN ID <", received_data[2:10],
                   ">", " ", "HEX data", received_data[10:])
+            
+            # Get the current date and time
+            timestamp = datetime.datetime.now()
+            # Convert the timestamp to a string in a specific format
+            timestamp_str = timestamp.strftime("%Y-%m-%d %H:%M:%S")
             # Define the output string
-            output_string = f'CAN ID <{received_data[2:10]}> {received_data[10:]}\n'
+            output_string = f'{timestamp_str} : CAN ID <{received_data[2:10]}> {received_data[10:]}\n'
 
             # Specify the file path
-            file_path = "CANT_Test.log"
+            file_path = "CANT_Test10Amps.log"
 
             # Write the output string to the file
             with open(file_path, "a") as file:
