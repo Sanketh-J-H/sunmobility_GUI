@@ -81,7 +81,8 @@ class B2TServer:
             # Write the output string to the file
             with open(file_path, "a") as file:
                 file.write(output_string)
-
+                file.close()
+                
     def stop_server(self):
         self.server_socket.close()
 
